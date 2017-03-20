@@ -1,6 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import { Layout, Menu, Icon } from 'antd';
+import './App.less';
 
 const { Header, Sider, Content } = Layout;
 
