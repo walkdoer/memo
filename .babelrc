@@ -4,7 +4,10 @@
     "stage-0",
     "react"
   ],
-  "plugins": ["add-module-exports"],
+  "plugins": [
+    "add-module-exports"
+    // ["import", { "libraryName": "antd", "style": "css" }] // `style: true` 会加载 less 文件
+  ],
   "env": {
     "production": {
       "presets": ["react-optimize"],
