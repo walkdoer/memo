@@ -30,7 +30,7 @@ export default class App extends Component {
           collapsed={this.state.collapsed}
           collapsedWidth={75}
         >
-          <div className="logo">
+          <div className="logo" style={{ '-webkit-user-select': 'none', '-webkit-app-region': 'drag' }}>
             <div className="text full">Memo</div>
             <div className="text singleCapital">M</div>
           </div>
@@ -56,7 +56,14 @@ export default class App extends Component {
           </Menu>
         </Sider>
         <Layout style={{ overflow: 'hidden' }}>
-          <Header style={{ background: '#fff', padding: 0 }}>
+          <Header
+            style={{
+              background: '#fff',
+              padding: 0,
+              '-webkit-user-select': 'none',
+              '-webkit-app-region': 'drag'
+            }}
+          >
             <Icon
               className="trigger"
               type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
