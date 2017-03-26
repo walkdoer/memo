@@ -13,7 +13,11 @@ export default class LogEditor extends Component {
           '}'
         ].join('\n'),
         // automaticLayout: true,
-        language: 'javascript'
+        language: 'javascript',
+        scrollbar: {
+          verticalScrollbarSize: 5,
+          horizontalScrollbarSize: 5,
+        }
       });
     });
     window.addEventListener('resize', this.layout);
