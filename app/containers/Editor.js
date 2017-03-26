@@ -14,6 +14,7 @@ export default class Editor extends Component {
         style={{
           height: '100%',
           overflow: 'hidden',
+          background: '#FFF',
         }}
       >
         <Content><LogEditor /></Content>

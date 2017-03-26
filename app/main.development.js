@@ -1,4 +1,14 @@
 import { app, BrowserWindow, Menu, shell } from 'electron';
+import fs from 'fs';
+import path from 'path';
+import nodeDebug from 'debug';
+import { isFileExistSync, loadJSONFileSync } from './utils/helper';
+import preferences from './preferences/default';
+
+const defaultPreferences = preferences({
+  userHomePath: app.getPath('home'),
+});
+const debug = nodeDebug('memo');
 
 let menu;
 let template;
@@ -19,6 +29,22 @@ if (process.env.NODE_ENV === 'development') {
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit();
 });
+
+const userDataPath = app.getPath('userData'); // where to save config file
+const preferencesFileName = '.memo.preferences.json'; // use json format to save user config
+const preferencesFilePath = path.join(userDataPath, preferencesFileName);
+debug(`config file path: ${preferencesFilePath}`);
+
+if (isFileExistSync(preferencesFilePath)) {
+  debug('preferences file is exit, config is: ');
+  const userPreferences = loadJSONFileSync(preferencesFilePath);
+  global.memoPreferences = Object.assign(defaultPreferences, userPreferences);
+  debug(JSON.stringify(global.memoPreferences, null, 2));
+} else {
+  debug('preferences file is not create, will create file automatically');
+  fs.writeFileSync(preferencesFilePath, JSON.stringify(defaultPreferences, null, 2));
+  debug(`create preferences file in ${preferencesFilePath}`);
+}
 
 
 const installExtensions = async () => {
