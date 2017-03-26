@@ -2,31 +2,29 @@
 import React, { Component } from 'react';
 import { Layout, Menu, Icon } from 'antd';
 import { Link } from 'react-router';
+import { connect } from 'react-redux';
+import { collapse } from '../actions/app';
 import './App.less';
 
 const { Header, Sider, Content } = Layout;
 
-export default class App extends Component {
+class App extends Component {
   static propTypes = {
     children: HTMLElement
   };
-  state = {
-    collapsed: false,
-  };
 
   toggle = () => {
-    this.setState({
-      collapsed: !this.state.collapsed,
-    });
+    this.props.dispatch(collapse());
   };
 
   render() {
     return (
       <Layout id="app-layout">
         <Sider
+          id="appSider"
           trigger={null}
           collapsible
-          collapsed={this.state.collapsed}
+          collapsed={this.props.collapsed}
           collapsedWidth={75}
         >
           <div className="logo" style={{ '-webkit-user-select': 'none', '-webkit-app-region': 'drag' }}>
@@ -72,7 +70,7 @@ export default class App extends Component {
           >
             <Icon
               className="trigger"
-              type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
+              type={this.props.collapsed ? 'menu-unfold' : 'menu-fold'}
               onClick={this.toggle}
             />
           </Header>
@@ -91,3 +89,9 @@ export default class App extends Component {
     );
   }
 }
+
+function mapStateToProps(state) {
+  return state.app;
+}
+
+export default connect(mapStateToProps)(App);

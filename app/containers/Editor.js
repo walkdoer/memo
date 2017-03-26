@@ -1,12 +1,21 @@
 // @flow
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Layout } from 'antd';
 import LogEditor from '../components/LogEditor';
 import Calendar from '../components/Calendar';
 
 const { Content, Sider } = Layout;
 
-export default class Editor extends Component {
+class Editor extends Component {
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.isAppSiderColappsed !== this.props.isAppSiderColappsed) {
+      setTimeout(() => {
+        this.editor.layout();
+      }, 200);
+    }
+  }
+
   render() {
     return (
       <Layout
@@ -17,8 +26,9 @@ export default class Editor extends Component {
           background: '#FFF',
         }}
       >
-        <Content><LogEditor /></Content>
+        <Content><LogEditor ref={editor => this.editor = editor}/></Content>
         <Sider
+          id="editorSider"
           width={250}
           style={{
             background: '#FFF',
@@ -31,3 +41,13 @@ export default class Editor extends Component {
     );
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    isAppSiderColappsed: state.app.collapsed
+  };
+}
+
+export default connect(
+  mapStateToProps
+)(Editor);
