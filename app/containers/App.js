@@ -20,7 +20,6 @@ export default class App extends Component {
     });
   };
 
-
   render() {
     return (
       <Layout id="app-layout">
@@ -53,12 +52,19 @@ export default class App extends Component {
                 <span className="nav-text">Reports</span>
               </Link>
             </Menu.Item>
+            <Menu.Item key="4">
+              <Link to="/preferences">
+                <Icon type="setting" />
+                <span className="nav-text">Preferences</span>
+              </Link>
+            </Menu.Item>
           </Menu>
         </Sider>
-        <Layout style={{ overflow: 'hidden' }}>
+        <Layout>
           <Header
             style={{
               background: '#fff',
+              borderBottom: '1px solid #d4d4d4',
               padding: 0,
               '-webkit-user-select': 'none',
               '-webkit-app-region': 'drag'
