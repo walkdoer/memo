@@ -1,4 +1,5 @@
 import fs from 'fs';
+import cofs from 'co-fs';
 
 export function isFolderExist(pathStr) {
   return new Promise((resolve) => {

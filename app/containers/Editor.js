@@ -2,8 +2,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Layout } from 'antd';
+import moment from 'moment';
 import LogEditor from '../components/LogEditor';
 import Calendar from '../components/Calendar';
+import { openLog } from '../actions/log';
 
 const { Content, Sider } = Layout;
 
@@ -16,6 +18,10 @@ class Editor extends Component {
     }
   }
 
+  openLog = (date) => {
+    this.props.openLog(date);
+  };
+
   render() {
     return (
       <Layout
@@ -26,7 +32,13 @@ class Editor extends Component {
           background: '#FFF',
         }}
       >
-        <Content><LogEditor ref={editor => this.editor = editor}/></Content>
+        <Content>
+          <LogEditor
+            log={this.props.fileContent}
+            onEditorReady={() => this.openLog(moment())}
+            ref={editor => { this.editor = editor; }}
+          />
+        </Content>
         <Sider
           id="editorSider"
           width={250}
@@ -35,7 +47,7 @@ class Editor extends Component {
             borderLeft: '1px solid #d4d4d4',
           }}
         >
-          <Calendar />
+          <Calendar onSelect={this.openLog}/>
         </Sider>
       </Layout>
     );
@@ -44,10 +56,20 @@ class Editor extends Component {
 
 function mapStateToProps(state) {
   return {
-    isAppSiderColappsed: state.app.collapsed
+    isAppSiderColappsed: state.app.collapsed,
+    fileContent: state.log.fileContent,
+    filepath: state.log.filepath,
+    logError: state.log.error,
+    logLoading: state.log.loading,
   };
 }
 
-export default connect(
-  mapStateToProps
-)(Editor);
+function mapDispathToProps(dispatch) {
+  return {
+    openLog(date) {
+      dispatch(openLog(date));
+    }
+  };
+}
+
+export default connect(mapStateToProps, mapDispathToProps)(Editor);

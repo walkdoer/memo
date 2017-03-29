@@ -165,9 +165,11 @@
   },
   "dependencies": {
     "antd": "^2.8.2",
+    "co-fs": "^1.2.0",
     "debug": "^2.6.3",
     "electron-debug": "^1.1.0",
     "font-awesome": "^4.7.0",
+    "moment": "^2.18.1",
     "monaco-editor": "^0.8.3",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",

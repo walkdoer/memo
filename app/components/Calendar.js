@@ -16,7 +16,7 @@ export default class DatePicker extends Component {
   render() {
     return (
       <div className="cmp-Calendar">
-        <Calendar fullscreen={false} onPanelChange={this.onPanelChange} />
+        <Calendar fullscreen={false} onPanelChange={this.onPanelChange} onSelect={this.props.onSelect}/>
       </div>
     );
   }

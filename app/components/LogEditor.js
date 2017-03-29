@@ -3,15 +3,14 @@ import $ from 'jquery';
 import './LogEditor.less';
 
 export default class LogEditor extends Component {
+  componentDidUpdate() {
+    this.monacoEditor.setValue(this.props.log);
+  }
 
   componentDidMount() {
     amdRequire(['vs/editor/editor.main'], () => {
       this.monacoEditor = monaco.editor.create(this.editorContainer, {
-        value: [
-          'function x() {',
-          '\tconsole.log("Hello world!");',
-          '}'
-        ].join('\n'),
+        value: this.props.log,
         // automaticLayout: true,
         language: 'javascript',
         scrollbar: {
@@ -19,6 +18,7 @@ export default class LogEditor extends Component {
           horizontalScrollbarSize: 5,
         }
       });
+      this.props.onEditorReady(this.monacoEditor);
     });
     window.addEventListener('resize', this.layout);
   }
