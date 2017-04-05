@@ -17,6 +17,7 @@ function init(monaco) {
     tokenizer: {
       // keywords: ['{', '}', '<', '>', '(', ')', '[', ']'],
       root: [
+        [/^\s*(\d{1,2}\s*:\s*\d{1,2})/, 'time'],
         [/^\s*(\d{1,2}\s*:\s*\d{1,2})(\s*~\s*)(\d{1,2}\s*:\s*\d{1,2})/, ['time.start', 'time.splitter', 'time.end']],
         [/(\{)(.*?)(\})/, ['class', 'class.content', 'class']],
         [/(<)(.*?)(>)/, ['project', 'project.content', 'project']],
@@ -68,6 +69,7 @@ function init(monaco) {
       { token: 'address.content', foreground: '5588b5' },
       { token: 'estimate', foreground: '86114a' },
       { token: 'estimate.time', foreground: 'd40068' },
+      { token: 'time', foreground: '0f7fce' },
       { token: 'time.start', foreground: '0f7fce' },
       { token: 'time.splitter', foreground: '1769a2' },
       { token: 'time.end', foreground: '0f7fce' },
