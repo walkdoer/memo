@@ -1,5 +1,6 @@
 // @flow
 import React, { Component } from 'react';
+import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { Layout } from 'antd';
 import moment from 'moment';
@@ -16,11 +17,19 @@ class Editor extends Component {
         this.editor.layout();
       }, 200);
     }
+    if (nextProps.params.date !== this.props.params.date) {
+      this.openLog(nextProps.date);
+    }
   }
+
 
   openLog = (date) => {
     this.props.openLog(date);
   };
+
+  routeLog = (date) => {
+    this.props.router.push(`/logEditor/${date.format('YYYY-MM-DD')}`);
+  }
 
   render() {
     return (
@@ -35,7 +44,7 @@ class Editor extends Component {
         <Content>
           <LogEditor
             log={this.props.fileContent}
-            onEditorReady={() => this.openLog(moment())}
+            onEditorReady={() => this.openLog(this.props.date)}
             ref={editor => { this.editor = editor; }}
           />
         </Content>
@@ -47,15 +56,22 @@ class Editor extends Component {
             borderLeft: '1px solid #d4d4d4',
           }}
         >
-          <Calendar onSelect={this.openLog}/>
+          <Calendar value={this.props.date} onSelect={this.routeLog}/>
         </Sider>
       </Layout>
     );
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
+  let date;
+  if (ownProps.params && ownProps.params.date) {
+    date = moment(ownProps.params.date);
+  } else {
+    date = moment();
+  }
   return {
+    date,
     isAppSiderColappsed: state.app.collapsed,
     fileContent: state.log.fileContent,
     filepath: state.log.filepath,
@@ -72,4 +88,4 @@ function mapDispathToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispathToProps)(Editor);
+export default withRouter(connect(mapStateToProps, mapDispathToProps)(Editor));

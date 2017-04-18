@@ -5,7 +5,9 @@ import './LogEditor.less';
 
 export default class LogEditor extends Component {
   componentDidUpdate() {
-    this.monacoEditor.setValue(this.props.log);
+    if (this.monacoEditor) {
+      this.monacoEditor.setValue(this.props.log);
+    }
   }
 
   componentDidMount() {

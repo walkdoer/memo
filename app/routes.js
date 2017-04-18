@@ -14,6 +14,7 @@ export default (
   <Route path="/" component={App}>
     <IndexRoute component={Home} />
     <Route path="logEditor" component={Editor} />
+    <Route path="logEditor/:date" component={Editor} />
     <Route path="preferences" component={Preferences} />
   </Route>
 );

@@ -3,7 +3,9 @@ import React, { Component } from 'react';
 import { Layout, Menu, Icon } from 'antd';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
+import moment from 'moment';
 import { collapse } from '../actions/app';
+
 import './App.less';
 
 const { Header, Sider, Content } = Layout;
@@ -39,7 +41,7 @@ class App extends Component {
               </Link>
             </Menu.Item>
             <Menu.Item key="2">
-              <Link to="/logEditor">
+              <Link to={`/logEditor/${moment().format('YYYY-MM-DD')}`}>
                 <Icon type="edit" />
                 <span className="nav-text">Log Editor</span>
               </Link>
