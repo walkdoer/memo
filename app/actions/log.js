@@ -24,7 +24,12 @@ export function openLog(date) {
       return yield fs.readFile(filepath, 'utf8');
     }).then(
       (fileContent) => dispatch(openLogSuccess(fileContent)),
-      (err) => dispatch(openLogError(err))
+      (err) => {
+        if (err.code === 'ENOENT') {
+          return dispatch(openLogSuccess(''));
+        }
+        return dispatch(openLogError(err));
+      }
     );
   };
 }
