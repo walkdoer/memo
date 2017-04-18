@@ -50,8 +50,8 @@ function init(monaco) {
     base: 'vs',
     inherit: false,
     rules: [
-      { token: 'class', foreground: '4D58B5', fontStyle: 'bold' },
-      { token: 'class.content', foreground: '0C3D9E' },
+      { token: 'class', foreground: '5d6df7', fontStyle: 'bold' },
+      { token: 'class.content', foreground: '426ae6' },
       { token: 'tags', foreground: 'dc6900' },
       { token: 'tag', foreground: 'ff9d00' },
       { token: 'tag.splitter', foreground: 'dc6900' },
