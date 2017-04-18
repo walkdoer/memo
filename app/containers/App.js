@@ -4,7 +4,7 @@ import { Layout, Menu, Icon } from 'antd';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import moment from 'moment';
-import { collapse } from '../actions/app';
+import { toogleCollapse } from '../actions/app';
 
 import './App.less';
 
@@ -16,7 +16,7 @@ class App extends Component {
   };
 
   toggle = () => {
-    this.props.dispatch(collapse());
+    this.props.dispatch(toogleCollapse(this.props.collapsed));
   };
 
   render() {

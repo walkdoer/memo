@@ -18,7 +18,6 @@ const openLogError = (payload) => ({ type: OPEN_LOG_ERROR, payload });
 export function openLog(date) {
   return (dispatch) => {
     const filepath = path.resolve(logFolder, `${date.format('YYYY/M/D')}.md`);
-    console.log(filepath);
     dispatch(startOpenLog(filepath));
     return co(function *() {
       return yield fs.readFile(filepath, 'utf8');

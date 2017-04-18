@@ -33,6 +33,8 @@ app.on('window-all-closed', () => {
 const userDataPath = app.getPath('userData'); // where to save config file
 const preferencesFileName = '.memo.preferences.json'; // use json format to save user config
 const preferencesFilePath = path.join(userDataPath, preferencesFileName);
+
+global.preferencesFilePath = preferencesFilePath;
 debug(`config file path: ${preferencesFilePath}`);
 
 if (isFileExistSync(preferencesFilePath)) {
