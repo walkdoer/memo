@@ -40,10 +40,11 @@ debug(`config file path: ${preferencesFilePath}`);
 if (isFileExistSync(preferencesFilePath)) {
   debug('preferences file is exit, config is: ');
   const userPreferences = loadJSONFileSync(preferencesFilePath);
-  global.memoPreferences = Object.assign(defaultPreferences, userPreferences);
+  global.memoPreferences = Object.assign({}, defaultPreferences, userPreferences);
   debug(JSON.stringify(global.memoPreferences, null, 2));
 } else {
   debug('preferences file is not create, will create file automatically');
+  global.memoPreferences = Object.assign({}, defaultPreferences);
   fs.writeFileSync(preferencesFilePath, JSON.stringify(defaultPreferences, null, 2));
   debug(`create preferences file in ${preferencesFilePath}`);
 }
